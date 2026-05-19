@@ -15,11 +15,11 @@ and February 2024.
 
 The analysis follows a layered diagnostic structure:
 
-1. **Establish the headline** — build the funnel at the monthly level
+1. **Establish the overall rate** — build the funnel at the monthly level
    to see whether anything is moving and by how much.
 2. **Localise the timing** — drop to daily granularity to find out
    when any movement began.
-3. **Decompose** — when the headline moves, separate rate-change from
+3. **Decompose** — when the overall rate moves, separate rate-change from
    mix-change by holding each segment constant.
 4. **Find the smoking gun** — quantify the mix driver in a single
    number.
@@ -28,12 +28,12 @@ The analysis follows a layered diagnostic structure:
 6. **Confirm structural vs episodic** — check whether anomalies span
    the full period.
 
-Six SQL queries take the analysis from blended funnel down to a
+Six SQL queries take the analysis from overall funnel down to a
 single product anomaly worth fixing.
 
 ## Key findings
 
-- The headline Created→Funded conversion drops 7 percentage points
+- The overall Created→Funded conversion drops 7 percentage points
   between January and February (49.1% → 42.7%).
 - Decomposition shows this is a **customer mix shift, not a product
   regression** — within-segment conversion is flat (Existing ~60%,
@@ -59,7 +59,7 @@ wise-funnel-case-study/
 
 ## Running the SQL
 
-The queries are written for and tested in CSVFiddle. Load the
+The queries are written for, and tested in CSVFiddle. Load the
 source CSV as a table named `"raw data"` (with a space, so the name
 must be quoted) and run the queries in order. Each query has a
 commented header explaining what it answers and the expected finding.
