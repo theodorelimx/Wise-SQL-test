@@ -59,7 +59,7 @@ wise-funnel-case-study/
 
 ## Running the SQL
 
-The queries are written for SQLite and tested in CSVFiddle. Load the
+The queries are written for and tested in CSVFiddle. Load the
 source CSV as a table named `"raw data"` (with a space, so the name
 must be quoted) and run the queries in order. Each query has a
 commented header explaining what it answers and the expected finding.
@@ -68,8 +68,3 @@ commented header explaining what it answers and the expected finding.
 
 The source dataset was provided by Wise as part of the case study and
 is not included in this repository.
-
-## Tech
-
-SQLite, Python (pandas, matplotlib) for chart generation, docx-js for
-the report document.
