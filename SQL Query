@@ -17,16 +17,6 @@
 -- -----------------------------------------------------------------------------
 -- 1. Overall funnel by month
 -- -----------------------------------------------------------------------------
--- Question answered: Is anything moving at the top of the funnel between
--- January and February, and at which step?
---
--- What to look for: Compare c2f (Created→Funded) and f2t (Funded→Transferred)
--- across months. A material change in either rate is the trigger for the rest
--- of the analysis.
---
--- Expected finding: c2f drops ~7pp Jan→Feb; f2t is flat. So the problem (if any)
--- lives at the pay-in step, not the payout step.
--- -----------------------------------------------------------------------------
 
 SELECT
     strftime('%Y-%m', dt)                                                  AS month,
@@ -52,16 +42,6 @@ ORDER BY month;
 -- -----------------------------------------------------------------------------
 -- 2. Daily Created→Funded conversion
 -- -----------------------------------------------------------------------------
--- Question answered: When did the drop in c2f begin? Is it gradual or a step
--- change?
---
--- What to look for: A clean break on a calendar boundary (e.g. 1 February)
--- typically indicates a product release or marketing campaign launch on that
--- date. A gradual trend would suggest something more diffuse.
---
--- Expected finding: c2f sits around 0.49 throughout January, then drops to
--- around 0.43 starting 1 February and stays there. Step change, not gradual.
--- -----------------------------------------------------------------------------
 
 SELECT
     dt,
@@ -80,21 +60,6 @@ ORDER BY dt;
 
 -- -----------------------------------------------------------------------------
 -- 3. Decomposition: Created→Funded by experience and month
--- -----------------------------------------------------------------------------
--- Question answered: Is the c2f drop a real product regression, or a customer
--- mix shift?
---
--- Logic: If conversion is flat within each segment but the overall rate moves,
--- the cause is mix shift (the customer base changed). If segment-level
--- conversion itself moves, the cause is a product or experience change.
---
--- What to look for: Hold experience constant and compare Jan vs Feb. Look at
--- both the c2f column and the created volume column.
---
--- Expected finding: Existing c2f is ~62% in both months; New c2f is ~25% in
--- both months. Conversion is flat within segment. Meanwhile, New created
--- volume grows ~44% (7,700 → 11,092) while Existing is roughly flat. The
--- overall drop is therefore mix shift, not regression.
 -- -----------------------------------------------------------------------------
 
 SELECT
@@ -116,16 +81,6 @@ ORDER BY experience, month;
 -- -----------------------------------------------------------------------------
 -- 4. The smoking gun: share of New users in the created cohort
 -- -----------------------------------------------------------------------------
--- Question answered: How big was the mix shift in a single number?
---
--- What to look for: A material rise in the share of New users between months.
--- This is the one figure that explains the overall trend.
---
--- Expected finding: Share of New users in created events rises from 35% in
--- January to 47% in February. Because New users convert at roughly a third
--- the rate of Existing users, this shift mechanically depresses the overall
--- c2f rate even with no product change.
--- -----------------------------------------------------------------------------
 
 SELECT
     strftime('%Y-%m', dt)                                                  AS month,
@@ -144,20 +99,6 @@ ORDER BY month;
 
 -- -----------------------------------------------------------------------------
 -- 5. Anomaly hunt: full funnel by platform × experience
--- -----------------------------------------------------------------------------
--- Question answered: Are there segment cells where conversion is far out of
--- line with their siblings — i.e. a product anomaly worth surfacing to the
--- team?
---
--- What to look for: Compare c2f across platforms within each experience level.
--- A 2x+ gap between platforms for the same customer type is a strong signal
--- of a platform-specific UX issue. Also compare f2t to localise the problem
--- to a specific funnel step.
---
--- Expected finding: New users on Android convert at just ~14% c2f, versus
--- ~25% on Web and ~37% on iOS. The same New Android users who do fund go on
--- to transfer at the highest rate of any cohort (~82% f2t), which isolates
--- the issue cleanly to the pay-in step on Android for new users.
 -- -----------------------------------------------------------------------------
 
 SELECT
@@ -184,20 +125,6 @@ ORDER BY experience, platform;
 
 -- -----------------------------------------------------------------------------
 -- 6. Confirm the Android anomaly is structural, not episodic
--- -----------------------------------------------------------------------------
--- Question answered: Is the New-Android conversion gap a recent regression
--- (something broke) or a long-standing structural weakness (something was
--- never built properly)?
---
--- What to look for: c2f for New users on Android in both January and February.
--- If the gap exists in both months, the issue is structural and has likely
--- been hiding in the data for some time.
---
--- Expected finding: New Android c2f is ~12% in January and ~15% in February —
--- low in both months. This is a structural product weakness, not a regression.
--- It deserves immediate attention because New users now make up nearly half
--- the created cohort, so the leverage of fixing it is much higher than it
--- would have been a month ago.
 -- -----------------------------------------------------------------------------
 
 SELECT
