@@ -1,4 +1,4 @@
-# Task 2: Conversion Dynamics Analysis — SQL Package
+# Conversion Dynamics Analysis 
 
 ## Purpose
 
@@ -40,8 +40,8 @@ from a long-standing issue.
 
 ## Files
 
-- `README.md` — this file
-- `analysis.sql` — six queries corresponding to the six steps above, each
+- `README` — this file
+- `SQL Query` — six queries corresponding to the six steps above, each
   with a commented header explaining what it answers and what to look for
 
 ## How to run
@@ -51,7 +51,7 @@ named `raw data` (with a space, so it must be quoted as `"raw data"` in SQL)
 with columns: `event_name`, `dt`, `user_id`, `region`, `platform`,
 `experience`.
 
-The queries are written for SQLite (compatible with CSVFiddle) and can be run
+The queries are written for CSVFiddle and can be run 
 in order. Each query is self-contained.
 
 ## Summary of findings (preview)
