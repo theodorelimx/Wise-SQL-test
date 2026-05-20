@@ -42,7 +42,7 @@ from a long-standing issue.
 
 - `README` — this file
 - `SQL Query` — six queries corresponding to the six steps above, each
-  with a commented header explaining what it answers and what to look for
+  with a commented header explaining what to look for
 
 ## How to run
 
@@ -58,13 +58,13 @@ in order. Each query is self-contained.
 
 The overall Created→Funded conversion drops from roughly 50% in January to
 43% in February. Decomposition shows that within each customer experience
-segment (New, Existing) conversion is flat — the drop is fully explained by a
+segment (New, Existing) conversion is flat, the drop is fully explained by a
 mix shift, as the share of New users in the created cohort rose from 35% to
 47% on the back of a ~44% increase in New user acquisition. Funded→Transferred
 is stable throughout.
 
 The most actionable anomaly is the Created→Funded conversion of New users on
-Android, which sits at ~14% versus ~37% on iOS and ~25% on Web — a 2-3x gap
+Android, which sits at ~14% versus ~37% on iOS and ~25% on Web, a 2-3x gap
 for the same customer type. New Android users who do fund convert downstream
 at the highest rate of any cohort, isolating the issue squarely in the pay-in
 step on Android for new users. This pattern is present in both months,
